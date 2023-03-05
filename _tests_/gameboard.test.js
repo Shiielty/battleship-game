@@ -17,7 +17,13 @@ describe('gameboard function factory', () => {
     expect(testGameboard.whoIsIn([3,3])).toEqual(testShip1)
     expect(testGameboard.whoIsIn([0,3])).toEqual(testShip2)
     expect(testGameboard.whoIsIn([4,3])).toEqual(testShip1)
-    expect(testGameboard.whoIsIn([6,3])).toEqual(undefined)
+    expect(testGameboard.whoIsIn([6,3])).toEqual(null)
+  })
+  it('place ships at the board', () => {
+    testGameboard.placeShip(testShip1);
+    expect(testGameboard.getBoard()[3][3]).toEqual(testShip1)
+    expect(testGameboard.getBoard()[4][3]).toEqual(testShip1)
+    expect(testGameboard.getBoard()[5][3]).toEqual(testShip1)
   })
   it('receive attack at correct coordinate', () => {
     testGameboard.placeShip(testShip1);
@@ -37,7 +43,7 @@ describe('gameboard function factory', () => {
     testGameboard.placeShip(testShip1)
     testGameboard.receiveAttack([0,0])
     expect(testShip1.getHits()).toEqual(0)
-    expect(testGameboard.getRecord()).toEqual([[0,0]])
+    expect(testGameboard.getMissedShots()).toEqual([[0,0]])
   }) 
 
   it('report if all the ships has been sunk', () => {
