@@ -1,18 +1,17 @@
 {
     "env": {
         "browser": true,
-        "commonjs": true,
-        "es2021": true,
-        "jest/globals": true
+        "es2021": true
     },
     "extends": "airbnb-base",
     "overrides": [
     ],
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
     "rules": {
-        "no-console": "off"
-    },
-    "plugins": ["jest"]
+        "import/prefer-default-export": ["off"],
+        "no-undef": ["off"]
+    }
 }
