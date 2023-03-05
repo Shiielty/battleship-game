@@ -1,5 +1,5 @@
 const Ships = (coordinates) => {
-  let length = coordinates.length
+  const { length } = coordinates;
   let hits = 0;
   let sink = false;
 
@@ -9,22 +9,22 @@ const Ships = (coordinates) => {
   const getSink = () => sink;
   const hit = () => {
     hits += 1;
-  }
+  };
   const isSunk = () => {
     if (getLength() === getHits()) {
       sink = true;
     }
     return getSink();
-  }
+  };
 
-  return { 
+  return {
     getCoor,
     getLength,
     getHits,
     getSink,
     hit,
-    isSunk
-  }
-}
+    isSunk,
+  };
+};
 
-export { Ships }
+export { Ships };
