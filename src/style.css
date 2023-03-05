@@ -8,9 +8,52 @@ body {
   background-color: rgb(30, 30, 30);
   color: rgb(255, 255, 255);
   height: 100vh;
+  text-align: center;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 }
 
+header {
+  padding-top: 50px;
+}
+
+h1 {
+  margin: 0;
+}
+
+main {
+  flex: 1;
+
+  padding: 50px 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.gameboard {
+  width: 300px;
+  height: 300px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+
+.tiles {
+  background-color: rgb(200, 200, 200);
+  border:1px solid rgb(100, 100, 100)
+}
+
+.tiles:hover {
+  background-color: red;
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  margin: 0 auto;
+}
