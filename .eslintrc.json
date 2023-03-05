@@ -12,6 +12,7 @@
     },
     "rules": {
         "import/prefer-default-export": ["off"],
-        "no-undef": ["off"]
+        "no-undef": ["off"],
+        "no-unused-vars":"warn"
     }
 }
