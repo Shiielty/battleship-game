@@ -1,4 +1,3 @@
-import { Gameboard } from '../src/gameboard';
 import { Ships } from '../src/ships';
 import { Player, Computer } from '../src/player';
 
