@@ -21,10 +21,8 @@ const Gameboard = () => {
     const inCoordinate = whoIsIn(coordinate);
     if (inCoordinate !== null) {
       inCoordinate.hit();
-      console.log(`ships receive attack at ${coordinate}`);
     } else {
       missedShots.push(coordinate);
-      console.log(`missed at ${coordinate}`);
     }
   };
 
