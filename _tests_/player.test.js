@@ -15,7 +15,11 @@ describe('Player module tests', () => {
     cpu = Computer('randomComputer');
     testShip1 = Ships([[0, 0]]);
     testShip2 = Ships([[7, 7]]);
-    testShip3 = Ships([[1, 1], [1, 2], [1, 3]]);
+    testShip3 = Ships([
+      [1, 1],
+      [1, 2],
+      [1, 3],
+    ]);
     player.placeShip(testShip1);
     player2.placeShip(testShip3);
     cpu.placeShip(testShip2);
@@ -41,12 +45,14 @@ describe('Player module tests', () => {
     expect(player2.getGameboard().getDeployed()[0].getHits()).toEqual(2);
   });
   it('computer made a random attack', () => {
-    cpu.computerAttack(player);
+    const randCoor = cpu.findRandomCoordinate();
+    cpu.computerAttack(player, randCoor);
     expect(cpu.getAttackLog()).toBeDefined();
   });
   it('computer made a random attack until player ships sunk', () => {
     while (!player.getGameboard().isAllSunk()) {
-      cpu.computerAttack(player);
+      const randCoor = cpu.findRandomCoordinate();
+      cpu.computerAttack(player, randCoor);
     }
     expect(player.getGameboard().getBoard()[0][0].getHits()).toEqual(1);
   });

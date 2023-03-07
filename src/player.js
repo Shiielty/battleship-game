@@ -59,7 +59,6 @@ const Computer = (computerName) => {
   const computerAttack = (enemy, randomCoordinate) => {
     enemy.getGameboard().receiveAttack(randomCoordinate);
     attackLog.push(randomCoordinate);
-    console.log(attackLog);
   };
 
   return {
