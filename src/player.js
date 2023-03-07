@@ -38,17 +38,28 @@ const Computer = (computerName) => {
     enemy.getGameboard().receiveAttack(coordinate);
   };
 
-  const computerAttack = (enemy) => {
-    const randomCoordinates = [];
+  const findRandomCoordinate = () => {
+    const randomCoordinate = [];
     while (true) {
-      const xCoor = Math.floor(Math.random() * 8);
-      const yCoor = Math.floor(Math.random() * 8);
-      randomCoordinates[0] = xCoor;
-      randomCoordinates[1] = yCoor;
-      if (!attackLog.includes(randomCoordinates)) break;
+      const xCoor = Math.floor(Math.random() * 10);
+      const yCoor = Math.floor(Math.random() * 10);
+      randomCoordinate[0] = xCoor;
+      randomCoordinate[1] = yCoor;
+      if (
+        !attackLog.some(
+          (coor) =>
+            coor[0] === randomCoordinate[0] && coor[1] === randomCoordinate[1]
+        )
+      )
+        break;
     }
-    enemy.getGameboard().receiveAttack(randomCoordinates);
-    attackLog.push(randomCoordinates);
+    return randomCoordinate;
+  };
+
+  const computerAttack = (enemy, randomCoordinate) => {
+    enemy.getGameboard().receiveAttack(randomCoordinate);
+    attackLog.push(randomCoordinate);
+    console.log(attackLog);
   };
 
   return {
@@ -57,6 +68,7 @@ const Computer = (computerName) => {
     getAttackLog,
     placeShip,
     attack,
+    findRandomCoordinate,
     computerAttack,
   };
 };
