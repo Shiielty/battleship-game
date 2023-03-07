@@ -12,6 +12,7 @@ content.addEventListener('click', (e) => {
     const { col } = e.target.dataset;
 
     if (name === 'computer') {
+      e.target.dataset.clicked = 'true';
       game.playerTurn(row, col);
       if (computerDefault.getGameboard().isAllSunk()) {
         game.over('player');
@@ -23,6 +24,5 @@ content.addEventListener('click', (e) => {
         game.over('computer');
       }
     }
-    e.target.dataset.clicked = 'true';
   }
 });
