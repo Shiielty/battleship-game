@@ -61,4 +61,12 @@ const createMain = () => {
   return main;
 };
 
-export { createHeader, createMain };
+const createFooter = () => {
+  const footer = document.createElement('footer');
+  footer.innerHTML =
+    'Copyright &copy; 2023 <a href="https://github.com/Shiielty">Shiielty</a>';
+
+  return footer;
+};
+
+export { createHeader, createMain, createFooter };

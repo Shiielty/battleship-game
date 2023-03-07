@@ -1,6 +1,6 @@
 import { Ships } from './ships.js';
 import { Player, Computer } from './player.js';
-import { createHeader, createMain } from './dom.js';
+import { createHeader, createMain, createFooter } from './dom.js';
 import { playerDefault, computerDefault } from './handler.js';
 
 const player = Player('human');
@@ -15,9 +15,11 @@ player.placeShip(ship1);
 const content = document.querySelector('.content');
 const header = createHeader();
 const main = createMain();
+const footer = createFooter();
 
 content.appendChild(header);
 content.appendChild(main);
+content.appendChild(footer);
 
 const tiles = document.querySelectorAll('.tiles');
 
