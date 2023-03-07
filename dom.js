@@ -5,8 +5,6 @@ const createHeader = () => {
   const h1 = document.createElement('h1');
   h1.textContent = 'BATTLESHIP';
   header.appendChild(h1);
-  console.log(header);
-  console.log(h1);
 
   return header;
 };
@@ -29,6 +27,7 @@ const createGameboard = (player) => {
       tiles.dataset.name = player.getName();
       tiles.dataset.col = colIndex;
       tiles.dataset.row = rowIndex;
+      tiles.dataset.clicked = 'false';
       gameboard.appendChild(tiles);
     });
   });
