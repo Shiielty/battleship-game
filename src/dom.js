@@ -19,14 +19,16 @@ const createGameboard = (player) => {
   const gameboard = document.createElement('div');
   gameboard.classList.add('gameboard');
 
-  playerBoard.forEach((row) => {
-    row.forEach((column) => {
+  playerBoard.forEach((row, rowIndex) => {
+    row.forEach((column, colIndex) => {
       const tiles = document.createElement('div');
       tiles.classList.add('tiles');
       if (column !== null) {
         tiles.textContent = 'x';
       }
-
+      tiles.dataset.name = player.getName();
+      tiles.dataset.col = colIndex;
+      tiles.dataset.row = rowIndex;
       gameboard.appendChild(tiles);
     });
   });
