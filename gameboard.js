@@ -1,5 +1,5 @@
 const Gameboard = () => {
-  const board = new Array(8).fill(null).map(() => Array(8).fill(null));
+  const board = new Array(10).fill(null).map(() => Array(10).fill(null));
   const deployed = [];
   const missedShots = [];
 

@@ -48,7 +48,6 @@ const Computer = (computerName) => {
       if (!attackLog.includes(randomCoordinates)) break;
     }
     enemy.getGameboard().receiveAttack(randomCoordinates);
-    console.log(`misile hit at ${randomCoordinates}`);
     attackLog.push(randomCoordinates);
   };
 
