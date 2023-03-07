@@ -54,6 +54,10 @@ main {
   background-color: red;
 }
 
+.tiles[data-clicked='true'] {
+  background-color: green;
+}
+
 footer {
   height: 30px;
   width: 100%;
