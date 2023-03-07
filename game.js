@@ -8,19 +8,23 @@ const start = () => {
   content.replaceChildren(createHeader(), createMain(), createFooter());
 };
 
+const changeColor = (row, col, name) => {
+  const targetTiles = document.querySelector(
+    `.tiles[data-name="${name}"][data-row="${row}"][data-col="${col}"]`
+  );
+  targetTiles.dataset.clicked = 'true';
+};
+
 const playerTurn = (row, col) => {
   computerDefault.getGameboard().receiveAttack([row, col]);
+  changeColor(row, col, computerDefault.getName());
 };
 
 const computerTurn = () => {
   const randCoor = computerDefault.findRandomCoordinate();
   const [row, col] = randCoor;
   computerDefault.computerAttack(playerDefault, [row, col]);
-
-  const targetTiles = document.querySelector(
-    `.tiles[data-name="player"][data-row="${row}"][data-col="${col}"]`
-  );
-  targetTiles.style.backgroundColor = 'green';
+  changeColor(row, col, playerDefault.getName());
 };
 
 const over = (winner) => {
