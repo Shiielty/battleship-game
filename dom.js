@@ -23,6 +23,10 @@ const createGameboard = (player) => {
     row.forEach((column) => {
       const tiles = document.createElement('div');
       tiles.classList.add('tiles');
+      if (column !== null) {
+        tiles.textContent = 'x';
+      }
+
       gameboard.appendChild(tiles);
     });
   });
