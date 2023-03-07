@@ -1,13 +1,10 @@
 import { Ships } from './ships.js';
+import { Player, Computer } from './player.js';
 
-console.log('Hello world');
+const player = Player('human');
+const ship1 = Ships([[0, 0], [0, 1], [0, 3]]);
 
-const ship1 = Ships(3);
-console.log(ship1);
+player.placeShip(ship1);
 
-ship1.hit();
-ship1.hit();
-ship1.hit();
-
-console.log(ship1);
-console.log(ship1.sink);
+console.log(player.getGameboard().getBoard());
+console.log(player.getGameboard().getDeployed()[0].getCoor());
