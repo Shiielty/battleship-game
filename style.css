@@ -9,7 +9,10 @@ body {
   color: rgb(255, 255, 255);
   height: 100vh;
   text-align: center;
+}
 
+.content {
+  height: 100svh;
   display: flex;
   flex-direction: column;
 }
