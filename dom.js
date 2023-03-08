@@ -17,7 +17,7 @@ const createGameboard = (player) => {
     row.forEach((column, colIndex) => {
       const tiles = document.createElement('div');
       tiles.classList.add('tiles');
-      if (column !== null) {
+      if (column !== null && player.getName() === 'player') {
         tiles.textContent = 'x';
       }
       tiles.dataset.name = player.getName();
@@ -99,7 +99,7 @@ const createPlaceShips = (player) => {
 
 const changeColor = (row, col, name) => {
   const targetTiles = document.querySelector(
-    `.tiles[data-name="${name}"][data-row="${row}"][data-col="${col}"]`
+    `.tiles[data-name="${name}"][data-row="${row}"][data-col="${col}"]`,
   );
   targetTiles.dataset.clicked = 'true';
 };
