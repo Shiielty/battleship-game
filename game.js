@@ -70,10 +70,8 @@ const computerTurn = (computerObj, enemyObj) => {
 
 const over = (winner) => {
   if (winner === 'player') {
-    console.log('player win!');
     renderGameOver(winner);
   } else if (winner === 'computer') {
-    console.log('computer win!');
     renderGameOver(winner);
   }
 };
