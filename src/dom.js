@@ -66,16 +66,18 @@ const createFooter = () => {
 
 const createGameOver = (winner) => {
   const gameOver = document.createElement('div');
+  const textBox = document.createElement('div');
   const btn = document.createElement('button');
 
   gameOver.classList.add('game-over');
   btn.classList.add('btn');
   btn.classList.add('game-over-btn');
 
-  gameOver.textContent = `${winner} is the winner!`;
+  textBox.textContent = `${winner} is the winner!`;
   btn.textContent = 'Play Again';
 
-  gameOver.appendChild(btn);
+  textBox.appendChild(btn);
+  gameOver.appendChild(textBox);
 
   return gameOver;
 };
