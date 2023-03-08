@@ -3,6 +3,8 @@ import {
   createMain,
   createFooter,
   createGameOver,
+  createPlaceShips,
+  changeColor,
 } from './dom.js';
 import { Player, Computer } from './player.js';
 import { Ships } from './ships.js';
@@ -10,50 +12,11 @@ import { Ships } from './ships.js';
 const initiatePlayer = () => {
   const playerObj = Player('player');
   const computerObj = Computer('computer');
-  const playerShip1 = Ships([
-    [0, 0],
-    [0, 1],
-  ]);
-  const playerShip2 = Ships([
-    [2, 2],
-    [3, 2],
-    [4, 2],
-    [5, 2],
-  ]);
-  const computerShip1 = Ships([
-    [3, 3],
-    [3, 4],
-    [3, 5],
-  ]);
-  const computerShip2 = Ships([[7, 7]]);
-
-  playerObj.placeShip(playerShip1);
-  playerObj.placeShip(playerShip2);
-  computerObj.placeShip(computerShip1);
-  computerObj.placeShip(computerShip2);
-
   return [playerObj, computerObj];
 };
 
-const render = (playerObj, computerObj) => {
-  const content = document.querySelector('.content');
-  content.replaceChildren(
-    createHeader(),
-    createMain(playerObj, computerObj),
-    createFooter(),
-  );
-};
-
-const renderGameOver = (winner) => {
-  const content = document.querySelector('.content');
-  content.appendChild(createGameOver(winner));
-};
-
-const changeColor = (row, col, name) => {
-  const targetTiles = document.querySelector(
-    `.tiles[data-name="${name}"][data-row="${row}"][data-col="${col}"]`,
-  );
-  targetTiles.dataset.clicked = 'true';
+const placeAllShips = (players, ships) => {
+  ships.forEach((ship) => players.placeShip(ship));
 };
 
 const playerTurn = (row, col, enemyObj) => {
@@ -68,12 +31,40 @@ const computerTurn = (computerObj, enemyObj) => {
   changeColor(row, col, enemyObj.getName());
 };
 
+const renderGameStart = (player) => {
+  const content = document.querySelector('.content');
+  content.replaceChildren(
+    createHeader(),
+    createPlaceShips(player),
+    createFooter()
+  );
+};
+
+const renderGame = (playerObj, computerObj) => {
+  const content = document.querySelector('.content');
+  content.replaceChildren(
+    createHeader(),
+    createMain(playerObj, computerObj),
+    createFooter()
+  );
+};
+
+const renderGameOver = (winner) => {
+  const content = document.querySelector('.content');
+  content.appendChild(createGameOver(winner));
+};
+
 const over = (winner) => {
   if (winner === 'player') {
     renderGameOver(winner);
   } else if (winner === 'computer') {
     renderGameOver(winner);
   }
+};
+
+const gameStart = (playerObj, playerShips, computerObj) => {
+  placeAllShips(playerObj, playerShips);
+  renderGame(playerObj, computerObj);
 };
 
 function restart() {
@@ -83,11 +74,14 @@ function restart() {
 }
 
 const game = {
+  placeAllShips,
   initiatePlayer,
-  render,
+  renderGameStart,
+  renderGame,
   playerTurn,
   computerTurn,
   over,
+  gameStart,
   restart,
 };
 
