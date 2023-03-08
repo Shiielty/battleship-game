@@ -82,6 +82,33 @@ const createGameOver = (winner) => {
   return gameOver;
 };
 
+const createPlaceShips = (player) => {
+  const placeShips = document.createElement('main');
+  const h2 = document.createElement('h2');
+  const gameBoard = createGameboard(player);
+
+  h2.textContent = 'PLACE YOUR SHIPS';
+
+  placeShips.classList.add('place-ships');
+
+  placeShips.appendChild(h2);
+  placeShips.appendChild(gameBoard);
+
+  return placeShips;
+};
+
+const changeColor = (row, col, name) => {
+  const targetTiles = document.querySelector(
+    `.tiles[data-name="${name}"][data-row="${row}"][data-col="${col}"]`
+  );
+  targetTiles.dataset.clicked = 'true';
+};
+
 export {
-  createHeader, createMain, createFooter, createGameOver,
+  createHeader,
+  createMain,
+  createFooter,
+  createGameOver,
+  createPlaceShips,
+  changeColor,
 };
