@@ -9,33 +9,6 @@ game.renderGameStart(playerObj);
 const playerShips = [];
 let shipNumber = 1;
 
-const isOccupied = (row, col, shipLength) => {
-  switch (shipLength) {
-    case 3:
-      return !playerShips.some(
-        (ship) =>
-          ship.getCoor().some((coor) => coor[0] === row && coor[1] === col) ||
-          ship
-            .getCoor()
-            .some((coor) => coor[0] === row && coor[1] === col + 1) ||
-          ship.getCoor().some((coor) => coor[0] === row && coor[1] === col + 2)
-      );
-    case 2:
-      return !playerShips.some(
-        (ship) =>
-          ship.getCoor().some((coor) => coor[0] === row && coor[1] === col) ||
-          ship.getCoor().some((coor) => coor[0] === row && coor[1] === col + 1)
-      );
-    case 1:
-      return !playerShips.some((ship) =>
-        ship.getCoor().some((coor) => coor[0] === row && coor[1] === col)
-      );
-    default:
-      break;
-  }
-};
-// game.renderGame(playerObj, computerObj);
-
 let winner = '';
 
 const content = document.querySelector('.content');
@@ -62,7 +35,7 @@ content.addEventListener('click', (e) => {
         }
         break;
       case 2:
-        if (col + 2 <= 9 && isOccupied(row, col, 3)) {
+        if (col + 2 <= 9 && game.isOccupied(row, col, 3, playerShips)) {
           const ship2 = Ships([
             [row, col],
             [row, col + 1],
@@ -73,7 +46,7 @@ content.addEventListener('click', (e) => {
         }
         break;
       case 3:
-        if (col + 2 <= 9 && isOccupied(row, col, 3)) {
+        if (col + 2 <= 9 && game.isOccupied(row, col, 3, playerShips)) {
           const ship3 = Ships([
             [row, col],
             [row, col + 1],
@@ -84,7 +57,7 @@ content.addEventListener('click', (e) => {
         }
         break;
       case 4:
-        if (col + 1 <= 9 && isOccupied(row, col, 2)) {
+        if (col + 1 <= 9 && game.isOccupied(row, col, 2, playerShips)) {
           const ship4 = Ships([
             [row, col],
             [row, col + 1],
@@ -94,11 +67,15 @@ content.addEventListener('click', (e) => {
         }
         break;
       case 5:
-        if (col <= 9 && isOccupied(row, col, 1)) {
+        if (col <= 9 && game.isOccupied(row, col, 1, playerShips)) {
           const ship5 = Ships([[row, col]]);
           playerShips.push(ship5);
-          game.gameStart(playerObj, playerShips, computerObj);
+          game.placeAllShips(playerObj, playerShips);
+          game.placeAllShips(computerObj, game.createComputerShips());
+          game.gameStart(playerObj, computerObj);
         }
+        break;
+      default:
         break;
     }
   }

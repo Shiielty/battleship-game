@@ -15,8 +15,156 @@ const initiatePlayer = () => {
   return [playerObj, computerObj];
 };
 
+const isOccupied = (row, col, shipLength, playerShips) => {
+  switch (shipLength) {
+    case 3:
+      return !playerShips.some(
+        (ship) => ship.getCoor().some((coor) => coor[0] === row && coor[1] === col) ||
+          ship
+            .getCoor()
+            .some((coor) => coor[0] === row && coor[1] === col + 1) ||
+          ship.getCoor().some((coor) => coor[0] === row && coor[1] === col + 2),
+      );
+    case 2:
+      return !playerShips.some(
+        (ship) => ship.getCoor().some((coor) => coor[0] === row && coor[1] === col) ||
+          ship.getCoor().some((coor) => coor[0] === row && coor[1] === col + 1),
+      );
+    case 1:
+      return !playerShips.some((ship) => ship.getCoor().some((coor) => coor[0] === row && coor[1] === col));
+    default:
+      break;
+  }
+};
+
 const placeAllShips = (players, ships) => {
   ships.forEach((ship) => players.placeShip(ship));
+};
+
+const isVerticalRand = () => {
+  const isVertical = Math.round(Math.random());
+  return isVertical;
+};
+
+const isSameArray = (arr1, arr2) => arr1.some((a1) => arr2.some((a2) => a1.every((val, i) => val === a2[i])));
+
+const createComputerShips = () => {
+  const computerShips = [];
+  const occupiedTiles = [];
+
+  const coordinates1 = [];
+  if (isVerticalRand()) {
+    const row = Math.floor(Math.random() * 7);
+    const col = Math.floor(Math.random() * 10);
+    coordinates1.push(
+      [row, col],
+      [row + 1, col],
+      [row + 2, col],
+      [row + 3, col],
+    );
+  } else {
+    const row = Math.floor(Math.random() * 10);
+    const col = Math.floor(Math.random() * 7);
+    coordinates1.push(
+      [row, col],
+      [row, col + 1],
+      [row, col + 2],
+      [row, col + 3],
+    );
+  }
+  occupiedTiles.push(...coordinates1);
+
+  const coordinates2 = [];
+  while (true) {
+    coordinates2.length = 0;
+    if (isVerticalRand()) {
+      const row = Math.floor(Math.random() * 8);
+      const col = Math.floor(Math.random() * 10);
+      coordinates2.push([row, col], [row + 1, col], [row + 2, col]);
+      if (!isSameArray(occupiedTiles, coordinates2)) {
+        break;
+      }
+    } else {
+      const row = Math.floor(Math.random() * 10);
+      const col = Math.floor(Math.random() * 8);
+      coordinates2.push([row, col], [row, col + 1], [row, col + 2]);
+      if (!isSameArray(occupiedTiles, coordinates2)) {
+        break;
+      }
+    }
+  }
+  occupiedTiles.push(...coordinates2);
+
+  const coordinates3 = [];
+  while (true) {
+    coordinates3.length = 0;
+    if (isVerticalRand()) {
+      const row = Math.floor(Math.random() * 8);
+      const col = Math.floor(Math.random() * 10);
+      coordinates3.push([row, col], [row + 1, col], [row + 2, col]);
+      if (!isSameArray(occupiedTiles, coordinates3)) {
+        break;
+      }
+    } else {
+      const row = Math.floor(Math.random() * 10);
+      const col = Math.floor(Math.random() * 8);
+      coordinates3.push([row, col], [row, col + 1], [row, col + 2]);
+      if (!isSameArray(occupiedTiles, coordinates3)) {
+        break;
+      }
+    }
+  }
+  occupiedTiles.push(...coordinates3);
+
+  const coordinates4 = [];
+  while (true) {
+    coordinates4.length = 0;
+    if (isVerticalRand()) {
+      const row = Math.floor(Math.random() * 9);
+      const col = Math.floor(Math.random() * 10);
+      coordinates4.push([row, col], [row + 1, col]);
+      if (!isSameArray(occupiedTiles, coordinates4)) {
+        break;
+      }
+    } else {
+      const row = Math.floor(Math.random() * 10);
+      const col = Math.floor(Math.random() * 9);
+      coordinates4.push([row, col], [row, col + 1]);
+      if (!isSameArray(occupiedTiles, coordinates4)) {
+        break;
+      }
+    }
+  }
+  occupiedTiles.push(...coordinates4);
+
+  const coordinates5 = [];
+  while (true) {
+    coordinates5.length = 0;
+    if (isVerticalRand()) {
+      const row = Math.floor(Math.random() * 10);
+      const col = Math.floor(Math.random() * 10);
+      coordinates5.push([row, col]);
+      if (!isSameArray(occupiedTiles, coordinates5)) {
+        break;
+      }
+    } else {
+      const row = Math.floor(Math.random() * 10);
+      const col = Math.floor(Math.random() * 10);
+      coordinates5.push([row, col]);
+      if (!isSameArray(occupiedTiles, coordinates5)) {
+        break;
+      }
+    }
+  }
+  occupiedTiles.push(...coordinates4);
+
+  const ship1 = Ships(coordinates1);
+  const ship2 = Ships(coordinates2);
+  const ship3 = Ships(coordinates3);
+  const ship4 = Ships(coordinates4);
+  const ship5 = Ships(coordinates5);
+  computerShips.push(ship1, ship2, ship3, ship4, ship5);
+  return computerShips;
 };
 
 const playerTurn = (row, col, enemyObj) => {
@@ -36,7 +184,7 @@ const renderGameStart = (player) => {
   content.replaceChildren(
     createHeader(),
     createPlaceShips(player),
-    createFooter()
+    createFooter(),
   );
 };
 
@@ -45,7 +193,7 @@ const renderGame = (playerObj, computerObj) => {
   content.replaceChildren(
     createHeader(),
     createMain(playerObj, computerObj),
-    createFooter()
+    createFooter(),
   );
 };
 
@@ -62,8 +210,7 @@ const over = (winner) => {
   }
 };
 
-const gameStart = (playerObj, playerShips, computerObj) => {
-  placeAllShips(playerObj, playerShips);
+const gameStart = (playerObj, computerObj) => {
   renderGame(playerObj, computerObj);
 };
 
@@ -74,8 +221,10 @@ function restart() {
 }
 
 const game = {
-  placeAllShips,
   initiatePlayer,
+  createComputerShips,
+  isOccupied,
+  placeAllShips,
   renderGameStart,
   renderGame,
   playerTurn,
