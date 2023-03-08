@@ -1,5 +1,3 @@
-import { playerDefault, computerDefault } from './handler.js';
-
 const createHeader = () => {
   const header = document.createElement('header');
   const h1 = document.createElement('h1');
@@ -35,9 +33,9 @@ const createGameboard = (player) => {
   return gameboard;
 };
 
-const createMain = () => {
-  const player = playerDefault;
-  const computer = computerDefault;
+const createMain = (playerObj, computerObj) => {
+  const player = playerObj;
+  const computer = computerObj;
 
   const main = document.createElement('main');
   const playerSide = document.createElement('div');
@@ -68,4 +66,22 @@ const createFooter = () => {
   return footer;
 };
 
-export { createHeader, createMain, createFooter };
+const createGameOver = (winner) => {
+  const gameOver = document.createElement('div');
+  const btn = document.createElement('button');
+
+  gameOver.classList.add('game-over');
+  btn.classList.add('btn');
+  btn.classList.add('game-over-btn');
+
+  gameOver.textContent = `${winner} is the winner!`;
+  btn.textContent = 'Play Again';
+
+  gameOver.appendChild(btn);
+
+  return gameOver;
+};
+
+export {
+  createHeader, createMain, createFooter, createGameOver,
+};
