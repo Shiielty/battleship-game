@@ -9,8 +9,6 @@ const createHeader = () => {
 
 const createGameboard = (player) => {
   const playerBoard = player.getGameboard().getBoard();
-  const boardDimension = [playerBoard.length, playerBoard[0].length];
-  const totalTiles = boardDimension[0] * boardDimension[1];
 
   const gameboard = document.createElement('div');
   gameboard.classList.add('gameboard');

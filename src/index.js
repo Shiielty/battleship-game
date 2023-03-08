@@ -29,8 +29,8 @@ content.addEventListener('click', (e) => {
       }
     }
   }
+
   if (e.target.className.includes('game-over-btn')) {
-    console.log('game restart!');
     winner = '';
     [playerObj, computerObj] = game.initiatePlayer();
     game.render(playerObj, computerObj);
