@@ -47,11 +47,9 @@ const Computer = (computerName) => {
       randomCoordinate[1] = yCoor;
       if (
         !attackLog.some(
-          (coor) =>
-            coor[0] === randomCoordinate[0] && coor[1] === randomCoordinate[1]
+          (coor) => coor[0] === randomCoordinate[0] && coor[1] === randomCoordinate[1],
         )
-      )
-        break;
+      ) break;
     }
     return randomCoordinate;
   };
