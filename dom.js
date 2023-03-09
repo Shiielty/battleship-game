@@ -10,7 +10,6 @@ const createHeader = () => {
 const createGameboard = (player, hasHiddenTiles = false) => {
   const playerBoard = player.getGameboard().getBoard();
 
-  console.log(playerBoard);
   const gameboard = document.createElement('div');
   gameboard.classList.add('gameboard');
 
@@ -48,17 +47,17 @@ const createMain = (playerObj, computerObj) => {
   const main = document.createElement('main');
   const playerSide = document.createElement('div');
   const computerSide = document.createElement('div');
-  const playerTitle = document.createElement('h2');
-  const computerTitle = document.createElement('h2');
+  // const playerTitle = document.createElement('h2');
+  // const computerTitle = document.createElement('h2');
   const playerGameboard = createGameboard(player);
   const computerGameboard = createGameboard(computer);
 
-  playerTitle.textContent = 'Player';
-  computerTitle.textContent = 'Computer';
+  // playerTitle.textContent = 'Player';
+  // computerTitle.textContent = 'Computer';
 
-  playerSide.appendChild(playerTitle);
+  // playerSide.appendChild(playerTitle);
   playerSide.appendChild(playerGameboard);
-  computerSide.appendChild(computerTitle);
+  // computerSide.appendChild(computerTitle);
   computerSide.appendChild(computerGameboard);
   main.appendChild(playerSide);
   main.appendChild(computerSide);
@@ -95,13 +94,17 @@ const createGameOver = (winner) => {
 const createPlaceShips = (player) => {
   const placeShips = document.createElement('main');
   const h2 = document.createElement('h2');
+  const rotateBtn = document.createElement('button');
   const gameBoard = createGameboard(player, true);
 
   h2.textContent = 'PLACE YOUR SHIPS';
+  rotateBtn.textContent = 'ROTATE';
 
   placeShips.classList.add('place-ships');
+  rotateBtn.classList.add('rotate-btn');
 
   placeShips.appendChild(h2);
+  placeShips.appendChild(rotateBtn);
   placeShips.appendChild(gameBoard);
 
   return placeShips;
