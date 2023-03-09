@@ -66,8 +66,10 @@ main.place-ships {
   background-color: blue;
 }
 
-.tiles:hover {
+.place-ships .tiles:hover,
+.tiles[data-name='computer']:hover {
   background-color: blue;
+  cursor: pointer;
 }
 
 .tiles[data-clicked='true'][data-status='hit'] {
