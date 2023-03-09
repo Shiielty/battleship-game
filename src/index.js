@@ -88,13 +88,30 @@ content.addEventListener('click', (e) => {
     if (name === 'computer') {
       e.target.dataset.clicked = 'true';
       game.playerTurn(row, col, computerObj);
+      if (computerObj.getGameboard().getBoard()[row][col] !== null) {
+        e.target.dataset.status = 'hit';
+      } else {
+        e.target.dataset.status = 'miss';
+      }
       if (computerObj.getGameboard().isAllSunk()) {
         winner = 'player';
         game.over(winner);
       }
 
       // after player turn, computer will automatically play
-      game.computerTurn(computerObj, playerObj);
+      const randCoor = computerObj.findRandomCoordinate();
+      game.computerTurn(randCoor, computerObj, playerObj);
+      const selectedTiles = document.querySelector(
+        `.tiles[data-name='player'][data-row="${randCoor[0]}"][data-col="${randCoor[1]}"]`
+      );
+      console.log(selectedTiles);
+      if (
+        playerObj.getGameboard().getBoard()[randCoor[0]][randCoor[1]] !== null
+      ) {
+        selectedTiles.dataset.status = 'hit';
+      } else {
+        selectedTiles.dataset.status = 'miss';
+      }
       if (playerObj.getGameboard().isAllSunk()) {
         winner = 'computer';
         game.over(winner);

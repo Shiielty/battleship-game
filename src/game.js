@@ -172,8 +172,7 @@ const playerTurn = (row, col, enemyObj) => {
   changeColor(row, col, enemyObj.getName());
 };
 
-const computerTurn = (computerObj, enemyObj) => {
-  const randCoor = computerObj.findRandomCoordinate();
+const computerTurn = (randCoor, computerObj, enemyObj) => {
   const [row, col] = randCoor;
   computerObj.computerAttack(enemyObj, [row, col]);
   changeColor(row, col, enemyObj.getName());
