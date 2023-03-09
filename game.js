@@ -15,28 +15,6 @@ const initiatePlayer = () => {
   return [playerObj, computerObj];
 };
 
-const isOccupied = (row, col, shipLength, playerShips) => {
-  switch (shipLength) {
-    case 3:
-      return !playerShips.some(
-        (ship) => ship.getCoor().some((coor) => coor[0] === row && coor[1] === col) ||
-          ship
-            .getCoor()
-            .some((coor) => coor[0] === row && coor[1] === col + 1) ||
-          ship.getCoor().some((coor) => coor[0] === row && coor[1] === col + 2),
-      );
-    case 2:
-      return !playerShips.some(
-        (ship) => ship.getCoor().some((coor) => coor[0] === row && coor[1] === col) ||
-          ship.getCoor().some((coor) => coor[0] === row && coor[1] === col + 1),
-      );
-    case 1:
-      return !playerShips.some((ship) => ship.getCoor().some((coor) => coor[0] === row && coor[1] === col));
-    default:
-      break;
-  }
-};
-
 const placeAllShips = (players, ships) => {
   ships.forEach((ship) => players.placeShip(ship));
 };
@@ -218,7 +196,7 @@ function restart() {
 const game = {
   initiatePlayer,
   createComputerShips,
-  isOccupied,
+  isSameArray,
   placeAllShips,
   renderGameStart,
   renderGame,
