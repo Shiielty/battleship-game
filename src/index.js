@@ -10,32 +10,56 @@ let gameboard = document.querySelector('.gameboard');
 gameboard.dataset.hiddenTiles = '3';
 const playerShips = [];
 let shipNumber = 1;
-
+let isVertical = false;
 let winner = '';
 
 const content = document.querySelector('.content');
 
 content.addEventListener('click', (e) => {
+  if (e.target.className === 'rotate-btn') {
+    if (isVertical) {
+      isVertical = false;
+    } else {
+      isVertical = true;
+    }
+  }
+
   if (
     e.target.className === 'tiles' &&
     e.target.parentElement.parentElement.className === 'place-ships'
   ) {
     const row = parseInt(e.target.dataset.row, 10);
     const col = parseInt(e.target.dataset.col, 10);
+    let axis = null;
+    let coordinate1 = [];
+    let coordinate2 = [];
+    let coordinate3 = [];
+    let coordinate4 = [];
+    let coordinate5 = [];
 
     switch (shipNumber) {
       case 1:
-        const coordinate1 = [
-          [row, col],
-          [row, col + 1],
-          [row, col + 2],
-          [row, col + 3],
-        ];
-        if (col + 3 <= 9) {
+        if (isVertical) {
+          coordinate1 = [
+            [row, col],
+            [row + 1, col],
+            [row + 2, col],
+            [row + 3, col],
+          ];
+          axis = row;
+        } else {
+          coordinate1 = [
+            [row, col],
+            [row, col + 1],
+            [row, col + 2],
+            [row, col + 3],
+          ];
+          axis = col;
+        }
+        if (axis + 3 <= 9) {
           const ship1 = Ships(coordinate1);
           playerObj.placeShip(ship1);
           playerShips.push(...coordinate1);
-          console.log(playerShips);
           shipNumber += 1;
           game.renderGameStart(playerObj);
           gameboard = document.querySelector('.gameboard');
@@ -43,12 +67,22 @@ content.addEventListener('click', (e) => {
         }
         break;
       case 2:
-        const coordinate2 = [
-          [row, col],
-          [row, col + 1],
-          [row, col + 2],
-        ];
-        if (col + 2 <= 9 && !game.isSameArray(coordinate2, playerShips)) {
+        if (isVertical) {
+          coordinate2 = [
+            [row, col],
+            [row + 1, col],
+            [row + 2, col],
+          ];
+          axis = row;
+        } else {
+          coordinate2 = [
+            [row, col],
+            [row, col + 1],
+            [row, col + 2],
+          ];
+          axis = col;
+        }
+        if (axis + 2 <= 9 && !game.isSameArray(coordinate2, playerShips)) {
           const ship2 = Ships(coordinate2);
           playerObj.placeShip(ship2);
           playerShips.push(...coordinate2);
@@ -59,12 +93,22 @@ content.addEventListener('click', (e) => {
         }
         break;
       case 3:
-        const coordinate3 = [
-          [row, col],
-          [row, col + 1],
-          [row, col + 2],
-        ];
-        if (col + 2 <= 9 && !game.isSameArray(coordinate3, playerShips)) {
+        if (isVertical) {
+          coordinate3 = [
+            [row, col],
+            [row + 1, col],
+            [row + 2, col],
+          ];
+          axis = row;
+        } else {
+          coordinate3 = [
+            [row, col],
+            [row, col + 1],
+            [row, col + 2],
+          ];
+          axis = col;
+        }
+        if (axis + 2 <= 9 && !game.isSameArray(coordinate3, playerShips)) {
           const ship3 = Ships(coordinate3);
           playerObj.placeShip(ship3);
           playerShips.push(...coordinate3);
@@ -75,11 +119,20 @@ content.addEventListener('click', (e) => {
         }
         break;
       case 4:
-        const coordinate4 = [
-          [row, col],
-          [row, col + 1],
-        ];
-        if (col + 2 <= 9 && !game.isSameArray(coordinate4, playerShips)) {
+        if (isVertical) {
+          coordinate4 = [
+            [row, col],
+            [row + 1, col],
+          ];
+          axis = row;
+        } else {
+          coordinate4 = [
+            [row, col],
+            [row, col + 1],
+          ];
+          axis = col;
+        }
+        if (axis + 1 <= 9 && !game.isSameArray(coordinate4, playerShips)) {
           const ship4 = Ships(coordinate4);
           playerObj.placeShip(ship4);
           playerShips.push(...coordinate4);
@@ -88,8 +141,8 @@ content.addEventListener('click', (e) => {
         }
         break;
       case 5:
-        const coordinate5 = [[row, col]];
-        if (col + 2 <= 9 && !game.isSameArray(coordinate5, playerShips)) {
+        coordinate5 = [[row, col]];
+        if (col <= 9 && !game.isSameArray(coordinate5, playerShips)) {
           const ship5 = Ships(coordinate5);
           playerObj.placeShip(ship5);
           playerShips.push(...coordinate5);
@@ -126,7 +179,6 @@ content.addEventListener('click', (e) => {
       const selectedTiles = document.querySelector(
         `.tiles[data-name='player'][data-row="${randCoor[0]}"][data-col="${randCoor[1]}"]`
       );
-      console.log(selectedTiles);
       if (
         playerObj.getGameboard().getBoard()[randCoor[0]][randCoor[1]] !== null
       ) {
@@ -149,5 +201,6 @@ content.addEventListener('click', (e) => {
     gameboard.dataset.hiddenTiles = '3';
     playerShips.length = 0; // empty the array
     shipNumber = 1;
+    isVertical = false;
   }
 });
