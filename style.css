@@ -62,11 +62,15 @@ main.place-ships {
 }
 
 .tiles:hover {
+  background-color: green;
+}
+
+.tiles[data-clicked='true'][data-status='hit'] {
   background-color: red;
 }
 
-.tiles[data-clicked='true'] {
-  background-color: green;
+.tiles[data-clicked='true'][data-status='miss'] {
+  background-color: grey;
 }
 
 footer {
