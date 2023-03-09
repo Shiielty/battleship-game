@@ -25,15 +25,17 @@ content.addEventListener('click', (e) => {
 
     switch (shipNumber) {
       case 1:
+        const coordinate1 = [
+          [row, col],
+          [row, col + 1],
+          [row, col + 2],
+          [row, col + 3],
+        ];
         if (col + 3 <= 9) {
-          const ship1 = Ships([
-            [row, col],
-            [row, col + 1],
-            [row, col + 2],
-            [row, col + 3],
-          ]);
-          playerShips.push(ship1);
+          const ship1 = Ships(coordinate1);
           playerObj.placeShip(ship1);
+          playerShips.push(...coordinate1);
+          console.log(playerShips);
           shipNumber += 1;
           game.renderGameStart(playerObj);
           gameboard = document.querySelector('.gameboard');
@@ -41,14 +43,15 @@ content.addEventListener('click', (e) => {
         }
         break;
       case 2:
-        if (col + 2 <= 9 && game.isOccupied(row, col, 3, playerShips)) {
-          const ship2 = Ships([
-            [row, col],
-            [row, col + 1],
-            [row, col + 2],
-          ]);
-          playerShips.push(ship2);
+        const coordinate2 = [
+          [row, col],
+          [row, col + 1],
+          [row, col + 2],
+        ];
+        if (col + 2 <= 9 && !game.isSameArray(coordinate2, playerShips)) {
+          const ship2 = Ships(coordinate2);
           playerObj.placeShip(ship2);
+          playerShips.push(...coordinate2);
           shipNumber += 1;
           game.renderGameStart(playerObj);
           gameboard = document.querySelector('.gameboard');
@@ -56,14 +59,15 @@ content.addEventListener('click', (e) => {
         }
         break;
       case 3:
-        if (col + 2 <= 9 && game.isOccupied(row, col, 3, playerShips)) {
-          const ship3 = Ships([
-            [row, col],
-            [row, col + 1],
-            [row, col + 2],
-          ]);
-          playerShips.push(ship3);
+        const coordinate3 = [
+          [row, col],
+          [row, col + 1],
+          [row, col + 2],
+        ];
+        if (col + 2 <= 9 && !game.isSameArray(coordinate3, playerShips)) {
+          const ship3 = Ships(coordinate3);
           playerObj.placeShip(ship3);
+          playerShips.push(...coordinate3);
           shipNumber += 1;
           game.renderGameStart(playerObj);
           gameboard = document.querySelector('.gameboard');
@@ -71,22 +75,24 @@ content.addEventListener('click', (e) => {
         }
         break;
       case 4:
-        if (col + 1 <= 9 && game.isOccupied(row, col, 2, playerShips)) {
-          const ship4 = Ships([
-            [row, col],
-            [row, col + 1],
-          ]);
-          playerShips.push(ship4);
+        const coordinate4 = [
+          [row, col],
+          [row, col + 1],
+        ];
+        if (col + 2 <= 9 && !game.isSameArray(coordinate4, playerShips)) {
+          const ship4 = Ships(coordinate4);
           playerObj.placeShip(ship4);
+          playerShips.push(...coordinate4);
           shipNumber += 1;
           game.renderGameStart(playerObj);
         }
         break;
       case 5:
-        if (col <= 9 && game.isOccupied(row, col, 1, playerShips)) {
-          const ship5 = Ships([[row, col]]);
-          playerShips.push(ship5);
+        const coordinate5 = [[row, col]];
+        if (col + 2 <= 9 && !game.isSameArray(coordinate5, playerShips)) {
+          const ship5 = Ships(coordinate5);
           playerObj.placeShip(ship5);
+          playerShips.push(...coordinate5);
           game.placeAllShips(computerObj, game.createComputerShips());
           game.renderGame(playerObj, computerObj);
         }
