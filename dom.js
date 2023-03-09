@@ -7,9 +7,10 @@ const createHeader = () => {
   return header;
 };
 
-const createGameboard = (player) => {
+const createGameboard = (player, hasHiddenTiles = false) => {
   const playerBoard = player.getGameboard().getBoard();
 
+  console.log(playerBoard);
   const gameboard = document.createElement('div');
   gameboard.classList.add('gameboard');
 
@@ -18,12 +19,21 @@ const createGameboard = (player) => {
       const tiles = document.createElement('div');
       tiles.classList.add('tiles');
       if (column !== null && player.getName() === 'player') {
-        tiles.textContent = 'x';
+        tiles.classList.add('occupied');
       }
       tiles.dataset.name = player.getName();
       tiles.dataset.col = colIndex;
       tiles.dataset.row = rowIndex;
       tiles.dataset.clicked = 'false';
+
+      if (hasHiddenTiles) {
+        for (let i = 0; i < 3; i++) {
+          const hiddenTiles = document.createElement('div');
+          hiddenTiles.classList.add('hidden-tiles');
+          tiles.appendChild(hiddenTiles);
+        }
+      }
+
       gameboard.appendChild(tiles);
     });
   });
@@ -85,7 +95,7 @@ const createGameOver = (winner) => {
 const createPlaceShips = (player) => {
   const placeShips = document.createElement('main');
   const h2 = document.createElement('h2');
-  const gameBoard = createGameboard(player);
+  const gameBoard = createGameboard(player, true);
 
   h2.textContent = 'PLACE YOUR SHIPS';
 

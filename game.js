@@ -209,10 +209,6 @@ const over = (winner) => {
   }
 };
 
-const gameStart = (playerObj, computerObj) => {
-  renderGame(playerObj, computerObj);
-};
-
 function restart() {
   const [playerObj, computerObj] = initiatePlayer();
   render(playerObj, computerObj);
@@ -229,7 +225,6 @@ const game = {
   playerTurn,
   computerTurn,
   over,
-  gameStart,
   restart,
 };
 

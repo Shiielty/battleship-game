@@ -6,6 +6,8 @@ import { Ships } from './ships.js';
 
 let [playerObj, computerObj] = game.initiatePlayer();
 game.renderGameStart(playerObj);
+let gameboard = document.querySelector('.gameboard');
+gameboard.dataset.hiddenTiles = '3';
 const playerShips = [];
 let shipNumber = 1;
 
@@ -31,7 +33,11 @@ content.addEventListener('click', (e) => {
             [row, col + 3],
           ]);
           playerShips.push(ship1);
+          playerObj.placeShip(ship1);
           shipNumber += 1;
+          game.renderGameStart(playerObj);
+          gameboard = document.querySelector('.gameboard');
+          gameboard.dataset.hiddenTiles = '2';
         }
         break;
       case 2:
@@ -42,7 +48,11 @@ content.addEventListener('click', (e) => {
             [row, col + 2],
           ]);
           playerShips.push(ship2);
+          playerObj.placeShip(ship2);
           shipNumber += 1;
+          game.renderGameStart(playerObj);
+          gameboard = document.querySelector('.gameboard');
+          gameboard.dataset.hiddenTiles = '2';
         }
         break;
       case 3:
@@ -53,7 +63,11 @@ content.addEventListener('click', (e) => {
             [row, col + 2],
           ]);
           playerShips.push(ship3);
+          playerObj.placeShip(ship3);
           shipNumber += 1;
+          game.renderGameStart(playerObj);
+          gameboard = document.querySelector('.gameboard');
+          gameboard.dataset.hiddenTiles = '1';
         }
         break;
       case 4:
@@ -63,16 +77,18 @@ content.addEventListener('click', (e) => {
             [row, col + 1],
           ]);
           playerShips.push(ship4);
+          playerObj.placeShip(ship4);
           shipNumber += 1;
+          game.renderGameStart(playerObj);
         }
         break;
       case 5:
         if (col <= 9 && game.isOccupied(row, col, 1, playerShips)) {
           const ship5 = Ships([[row, col]]);
           playerShips.push(ship5);
-          game.placeAllShips(playerObj, playerShips);
+          playerObj.placeShip(ship5);
           game.placeAllShips(computerObj, game.createComputerShips());
-          game.gameStart(playerObj, computerObj);
+          game.renderGame(playerObj, computerObj);
         }
         break;
       default:
