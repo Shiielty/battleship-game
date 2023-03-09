@@ -6,12 +6,13 @@ import { Ships } from './ships.js';
 
 let [playerObj, computerObj] = game.initiatePlayer();
 game.renderGameStart(playerObj);
-let gameboard = document.querySelector('.gameboard');
-gameboard.dataset.hiddenTiles = '3';
 const playerShips = [];
 let shipNumber = 1;
 let isVertical = false;
 let winner = '';
+let gameboard = document.querySelector('.gameboard');
+gameboard.dataset.hiddenTiles = '3';
+gameboard.dataset.vertical = `${isVertical}`;
 
 const content = document.querySelector('.content');
 
@@ -22,6 +23,7 @@ content.addEventListener('click', (e) => {
     } else {
       isVertical = true;
     }
+    gameboard.dataset.vertical = `${isVertical}`;
   }
 
   if (
@@ -64,6 +66,7 @@ content.addEventListener('click', (e) => {
           game.renderGameStart(playerObj);
           gameboard = document.querySelector('.gameboard');
           gameboard.dataset.hiddenTiles = '2';
+          gameboard.dataset.vertical = `${isVertical}`;
         }
         break;
       case 2:
@@ -90,6 +93,7 @@ content.addEventListener('click', (e) => {
           game.renderGameStart(playerObj);
           gameboard = document.querySelector('.gameboard');
           gameboard.dataset.hiddenTiles = '2';
+          gameboard.dataset.vertical = `${isVertical}`;
         }
         break;
       case 3:
@@ -116,6 +120,7 @@ content.addEventListener('click', (e) => {
           game.renderGameStart(playerObj);
           gameboard = document.querySelector('.gameboard');
           gameboard.dataset.hiddenTiles = '1';
+          gameboard.dataset.vertical = `${isVertical}`;
         }
         break;
       case 4:
@@ -138,6 +143,7 @@ content.addEventListener('click', (e) => {
           playerShips.push(...coordinate4);
           shipNumber += 1;
           game.renderGameStart(playerObj);
+          gameboard.dataset.vertical = `${isVertical}`;
         }
         break;
       case 5:
