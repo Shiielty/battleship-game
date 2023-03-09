@@ -59,10 +59,15 @@ main.place-ships {
   background-color: rgb(200, 200, 200);
   border: 1px solid rgb(100, 100, 100);
   color: rgb(0, 0, 0);
+  position: relative;
+}
+
+.tiles.occupied {
+  background-color: blue;
 }
 
 .tiles:hover {
-  background-color: green;
+  background-color: blue;
 }
 
 .tiles[data-clicked='true'][data-status='hit'] {
@@ -71,6 +76,42 @@ main.place-ships {
 
 .tiles[data-clicked='true'][data-status='miss'] {
   background-color: grey;
+}
+
+.hidden-tiles {
+  display: none;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgb(100, 100, 100);
+  background-color: blue;
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hidden-tiles:nth-of-type(1) {
+  left: 30px;
+}
+.hidden-tiles:nth-of-type(2) {
+  left: 60px;
+}
+.hidden-tiles:nth-of-type(3) {
+  left: 90px;
+}
+
+.gameboard[data-hidden-tiles='3'] .tiles:hover > .hidden-tiles:nth-of-type(1),
+.gameboard[data-hidden-tiles='3'] .tiles:hover > .hidden-tiles:nth-of-type(2),
+.gameboard[data-hidden-tiles='3'] .tiles:hover > .hidden-tiles:nth-of-type(3) {
+  display: block;
+}
+
+.gameboard[data-hidden-tiles='2'] .tiles:hover > .hidden-tiles:nth-of-type(1),
+.gameboard[data-hidden-tiles='2'] .tiles:hover > .hidden-tiles:nth-of-type(2) {
+  display: block;
+}
+
+.gameboard[data-hidden-tiles='1'] .tiles:hover > .hidden-tiles:nth-of-type(1) {
+  display: block;
 }
 
 footer {
