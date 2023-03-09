@@ -139,6 +139,8 @@ content.addEventListener('click', (e) => {
     winner = '';
     [playerObj, computerObj] = game.initiatePlayer();
     game.renderGameStart(playerObj);
+    gameboard = document.querySelector('.gameboard');
+    gameboard.dataset.hiddenTiles = '3';
     playerShips.length = 0; // empty the array
     shipNumber = 1;
   }
