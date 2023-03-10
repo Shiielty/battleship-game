@@ -68,24 +68,31 @@ const createMain = (playerObj, computerObj) => {
 const createFooter = () => {
   const footer = document.createElement('footer');
   footer.innerHTML =
-    'Copyright &copy; 2023 <a href="https://github.com/Shiielty">Shiielty</a>';
+    'Created by <a href="https://github.com/Shiielty/">Shiielty</a> | <a href="https://github.com/Shiielty/battleship">Source Code<img src="./GitHub-Mark-32px.png" alt="github"></a> </p>';
 
   return footer;
 };
 
 const createGameOver = (winner) => {
   const gameOver = document.createElement('div');
+  const blurBg = document.createElement('div');
   const textBox = document.createElement('div');
   const btn = document.createElement('button');
 
   gameOver.classList.add('game-over');
+  blurBg.classList.add('blur-bg');
   btn.classList.add('btn');
   btn.classList.add('game-over-btn');
 
-  textBox.textContent = `${winner} is the winner!`;
+  if (winner === 'player') {
+    textBox.textContent = 'YOU WIN!';
+  } else {
+    textBox.textContent = 'YOU WIN!';
+  }
   btn.textContent = 'Play Again';
 
   textBox.appendChild(btn);
+  gameOver.appendChild(blurBg);
   gameOver.appendChild(textBox);
 
   return gameOver;
@@ -97,7 +104,7 @@ const createPlaceShips = (player) => {
   const rotateBtn = document.createElement('button');
   const gameBoard = createGameboard(player, true);
 
-  h2.textContent = 'PLACE YOUR SHIPS';
+  h2.textContent = '"PLACE YOUR SHIPS!"';
   rotateBtn.textContent = 'ROTATE';
 
   placeShips.classList.add('place-ships');
