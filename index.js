@@ -13,8 +13,21 @@ let winner = '';
 let gameboard = document.querySelector('.gameboard');
 gameboard.dataset.hiddenTiles = '3';
 gameboard.dataset.vertical = `${isVertical}`;
+let tiles = document.querySelectorAll('.tiles');
 
 const content = document.querySelector('.content');
+
+const addForbiddenTiles = (nodes) => {
+  nodes.forEach((tile) => {
+    const arr = [
+      [parseInt(tile.dataset.row, 10), parseInt(tile.dataset.col, 10)],
+    ];
+    if (game.isSameArrayAdvance(arr, playerShips)) {
+      console.log(arr);
+      tile.dataset.forbidden = 'true';
+    }
+  });
+};
 
 content.addEventListener('click', (e) => {
   if (e.target.className === 'rotate-btn') {
@@ -67,8 +80,11 @@ content.addEventListener('click', (e) => {
           gameboard = document.querySelector('.gameboard');
           gameboard.dataset.hiddenTiles = '2';
           gameboard.dataset.vertical = `${isVertical}`;
+          tiles = document.querySelectorAll('.tiles');
+          addForbiddenTiles(tiles);
         }
         break;
+
       case 2:
         if (isVertical) {
           coordinate2 = [
@@ -85,7 +101,10 @@ content.addEventListener('click', (e) => {
           ];
           axis = col;
         }
-        if (axis + 2 <= 9 && !game.isSameArray(coordinate2, playerShips)) {
+        if (
+          axis + 2 <= 9 &&
+          !game.isSameArrayAdvance(coordinate2, playerShips)
+        ) {
           const ship2 = Ships(coordinate2);
           playerObj.placeShip(ship2);
           playerShips.push(...coordinate2);
@@ -94,8 +113,11 @@ content.addEventListener('click', (e) => {
           gameboard = document.querySelector('.gameboard');
           gameboard.dataset.hiddenTiles = '2';
           gameboard.dataset.vertical = `${isVertical}`;
+          tiles = document.querySelectorAll('.tiles');
+          addForbiddenTiles(tiles);
         }
         break;
+
       case 3:
         if (isVertical) {
           coordinate3 = [
@@ -112,7 +134,10 @@ content.addEventListener('click', (e) => {
           ];
           axis = col;
         }
-        if (axis + 2 <= 9 && !game.isSameArray(coordinate3, playerShips)) {
+        if (
+          axis + 2 <= 9 &&
+          !game.isSameArrayAdvance(coordinate3, playerShips)
+        ) {
           const ship3 = Ships(coordinate3);
           playerObj.placeShip(ship3);
           playerShips.push(...coordinate3);
@@ -121,8 +146,11 @@ content.addEventListener('click', (e) => {
           gameboard = document.querySelector('.gameboard');
           gameboard.dataset.hiddenTiles = '1';
           gameboard.dataset.vertical = `${isVertical}`;
+          tiles = document.querySelectorAll('.tiles');
+          addForbiddenTiles(tiles);
         }
         break;
+
       case 4:
         if (isVertical) {
           coordinate4 = [
@@ -137,18 +165,25 @@ content.addEventListener('click', (e) => {
           ];
           axis = col;
         }
-        if (axis + 1 <= 9 && !game.isSameArray(coordinate4, playerShips)) {
+        if (
+          axis + 1 <= 9 &&
+          !game.isSameArrayAdvance(coordinate4, playerShips)
+        ) {
           const ship4 = Ships(coordinate4);
           playerObj.placeShip(ship4);
           playerShips.push(...coordinate4);
           shipNumber += 1;
           game.renderGameStart(playerObj);
           gameboard.dataset.vertical = `${isVertical}`;
+          tiles = document.querySelectorAll('.tiles');
+          addForbiddenTiles(tiles);
         }
         break;
+
       case 5:
         coordinate5 = [[row, col]];
-        if (col <= 9 && !game.isSameArray(coordinate5, playerShips)) {
+        if (col <= 9 && !game.isSameArrayAdvance(coordinate5, playerShips)) {
+          // console.log(!game.isSameArrayAdvance(coordinate5, playerShips));
           const ship5 = Ships(coordinate5);
           playerObj.placeShip(ship5);
           playerShips.push(...coordinate5);
@@ -180,21 +215,23 @@ content.addEventListener('click', (e) => {
       }
 
       // after player turn, computer will automatically play
-      const randCoor = computerObj.findRandomCoordinate();
-      game.computerTurn(randCoor, computerObj, playerObj);
-      const selectedTiles = document.querySelector(
-        `.tiles[data-name='player'][data-row="${randCoor[0]}"][data-col="${randCoor[1]}"]`
-      );
-      if (
-        playerObj.getGameboard().getBoard()[randCoor[0]][randCoor[1]] !== null
-      ) {
-        selectedTiles.dataset.status = 'hit';
-      } else {
-        selectedTiles.dataset.status = 'miss';
-      }
-      if (playerObj.getGameboard().isAllSunk()) {
-        winner = 'computer';
-        game.over(winner);
+      if (winner === '') {
+        const randCoor = computerObj.findRandomCoordinate();
+        game.computerTurn(randCoor, computerObj, playerObj);
+        const selectedTiles = document.querySelector(
+          `.tiles[data-name='player'][data-row="${randCoor[0]}"][data-col="${randCoor[1]}"]`
+        );
+        if (
+          playerObj.getGameboard().getBoard()[randCoor[0]][randCoor[1]] !== null
+        ) {
+          selectedTiles.dataset.status = 'hit';
+        } else {
+          selectedTiles.dataset.status = 'miss';
+        }
+        if (playerObj.getGameboard().isAllSunk()) {
+          winner = 'computer';
+          game.over(winner);
+        }
       }
     }
   }
@@ -208,5 +245,6 @@ content.addEventListener('click', (e) => {
     playerShips.length = 0; // empty the array
     shipNumber = 1;
     isVertical = false;
+    tiles = document.querySelectorAll('.tiles');
   }
 });

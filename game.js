@@ -24,7 +24,25 @@ const isVerticalRand = () => {
   return isVertical;
 };
 
-const isSameArray = (arr1, arr2) => arr1.some((a1) => arr2.some((a2) => a1.every((val, i) => val === a2[i])));
+const isSameArrayAdvance = (arr1, arr2) => arr1.some((a1) => arr2.some((a2) => a1.every((val, i) => val === a2[i]))) ||
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] + 1 && a1[1] === a2[1])) ||
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] + 1 && a1[1] === a2[1] + 1)) ||
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] && a1[1] === a2[1] + 1)) ||
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] - 1 && a1[1] === a2[1] + 1)) ||
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] - 1 && a1[1] === a2[1])) ||
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] - 1 && a1[1] === a2[1] - 1)) ||
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] && a1[1] === a2[1] - 1)) ||
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] + 1 && a1[1] === a2[1] - 1));
+
+const isSameArrayAdvance2 = (arr1, arr2) => arr1.some((a1) => arr2.some((a2) => a1.every((val, i) => val === a2[i]))) && 
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] + 1 && a1[1] === a2[1])) &&
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] + 1 && a1[1] === a2[1] + 1)) &&
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] && a1[1] === a2[1] + 1)) &&
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] - 1 && a1[1] === a2[1] + 1)) &&
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] - 1 && a1[1] === a2[1])) &&
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] - 1 && a1[1] === a2[1] - 1)) &&
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] && a1[1] === a2[1] - 1)) &&
+  arr1.some((a1) => arr2.some((a2) => a1[0] === a2[0] + 1 && a1[1] === a2[1] - 1));
 
 const createComputerShips = () => {
   const computerShips = [];
@@ -59,14 +77,14 @@ const createComputerShips = () => {
       const row = Math.floor(Math.random() * 8);
       const col = Math.floor(Math.random() * 10);
       coordinates2.push([row, col], [row + 1, col], [row + 2, col]);
-      if (!isSameArray(occupiedTiles, coordinates2)) {
+      if (!isSameArrayAdvance(occupiedTiles, coordinates2)) {
         break;
       }
     } else {
       const row = Math.floor(Math.random() * 10);
       const col = Math.floor(Math.random() * 8);
       coordinates2.push([row, col], [row, col + 1], [row, col + 2]);
-      if (!isSameArray(occupiedTiles, coordinates2)) {
+      if (!isSameArrayAdvance(occupiedTiles, coordinates2)) {
         break;
       }
     }
@@ -80,14 +98,14 @@ const createComputerShips = () => {
       const row = Math.floor(Math.random() * 8);
       const col = Math.floor(Math.random() * 10);
       coordinates3.push([row, col], [row + 1, col], [row + 2, col]);
-      if (!isSameArray(occupiedTiles, coordinates3)) {
+      if (!isSameArrayAdvance(occupiedTiles, coordinates3)) {
         break;
       }
     } else {
       const row = Math.floor(Math.random() * 10);
       const col = Math.floor(Math.random() * 8);
       coordinates3.push([row, col], [row, col + 1], [row, col + 2]);
-      if (!isSameArray(occupiedTiles, coordinates3)) {
+      if (!isSameArrayAdvance(occupiedTiles, coordinates3)) {
         break;
       }
     }
@@ -101,14 +119,14 @@ const createComputerShips = () => {
       const row = Math.floor(Math.random() * 9);
       const col = Math.floor(Math.random() * 10);
       coordinates4.push([row, col], [row + 1, col]);
-      if (!isSameArray(occupiedTiles, coordinates4)) {
+      if (!isSameArrayAdvance(occupiedTiles, coordinates4)) {
         break;
       }
     } else {
       const row = Math.floor(Math.random() * 10);
       const col = Math.floor(Math.random() * 9);
       coordinates4.push([row, col], [row, col + 1]);
-      if (!isSameArray(occupiedTiles, coordinates4)) {
+      if (!isSameArrayAdvance(occupiedTiles, coordinates4)) {
         break;
       }
     }
@@ -122,14 +140,14 @@ const createComputerShips = () => {
       const row = Math.floor(Math.random() * 10);
       const col = Math.floor(Math.random() * 10);
       coordinates5.push([row, col]);
-      if (!isSameArray(occupiedTiles, coordinates5)) {
+      if (!isSameArrayAdvance(occupiedTiles, coordinates5)) {
         break;
       }
     } else {
       const row = Math.floor(Math.random() * 10);
       const col = Math.floor(Math.random() * 10);
       coordinates5.push([row, col]);
-      if (!isSameArray(occupiedTiles, coordinates5)) {
+      if (!isSameArrayAdvance(occupiedTiles, coordinates5)) {
         break;
       }
     }
@@ -196,7 +214,6 @@ function restart() {
 const game = {
   initiatePlayer,
   createComputerShips,
-  isSameArray,
   placeAllShips,
   renderGameStart,
   renderGame,
@@ -204,6 +221,8 @@ const game = {
   computerTurn,
   over,
   restart,
+  isSameArrayAdvance,
+  isSameArrayAdvance2,
 };
 
 export { game };
