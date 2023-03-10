@@ -1,14 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Gruppo&family=Nixie+One&family=Open+Sans:wght@300;400;700&family=Rubik+Moonrocks&family=Wallpoet&display=swap');
+
+/* font-family: 'Gruppo', cursive; */
+/* font-family: 'Nixie One', cursive; */
+/* font-family: 'Open Sans', sans-serif; */
+/* font-family: 'Rubik Moonrocks', cursive; */
+/* font-family: 'Wallpoet', cursive; */
+
 * {
   box-sizing: border-box;
 }
-
 body {
   margin: 0;
   padding: 0;
   background-color: rgb(30, 30, 30);
   color: rgb(255, 255, 255);
-  height: 100vh;
+  height: 100svh;
   text-align: center;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .content {
@@ -19,23 +27,29 @@ body {
 
 header {
   padding-top: 50px;
+  z-index: 99;
+  font-family: 'Nixie One', cursive;
 }
 
 h1 {
-  margin: 0;
-  font-size: clamp(2rem, 5vw + 0.5rem, 4rem);
+  margin: 0 auto;
+  padding: 0 0 5px 0;
+  font-size: clamp(2rem, 5vw + 0.5rem, 3rem);
   letter-spacing: clamp(10px, 2vw, 20px);
 }
 
 h2 {
-  font-size: clamp(1.2rem, 2vw + 0.5rem, 1.5rem);
+  font-family: 'Open Sans', sans-serif;
+  font-size: clamp(1.3rem, 2vw + 0.5rem, 1.5rem);
+  margin: 10px 0;
+  font-weight: 300;
 }
 
 main {
   flex: 1;
 
-  padding: 50px 0;
-  margin: 0 auto;
+  padding: 20px 0 50px;
+  margin: 50px auto;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -43,7 +57,30 @@ main {
 }
 
 main.place-ships {
+  margin: 0 auto;
   display: block;
+}
+
+button {
+  padding: 5px 10px;
+  background: rgb(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.rotate-btn {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: rgb(200, 200, 200, 0.9);
+  color: black;
+  letter-spacing: 1px;
+}
+
+button:active {
+  transform: scale(0.98);
+  background-color: rgb(0, 0, 0, 0.6);
+  color: white;
 }
 
 .gameboard {
@@ -63,17 +100,17 @@ main.place-ships {
 }
 
 .tiles.occupied {
-  background-color: blue;
+  background-color: rgb(100, 200, 100);
 }
 
 .place-ships .tiles:hover,
 .tiles[data-name='computer']:hover {
-  background-color: blue;
+  background-color: rgb(80, 80, 250);
   cursor: pointer;
 }
 
 .tiles[data-clicked='true'][data-status='hit'] {
-  background-color: red;
+  background-color: rgb(200, 100, 100);
 }
 
 .tiles[data-clicked='true'][data-status='miss'] {
@@ -85,7 +122,7 @@ main.place-ships {
   width: 30px;
   height: 30px;
   border: 1px solid rgb(100, 100, 100);
-  background-color: blue;
+  background-color: rgb(80, 80, 250);
   position: absolute;
   z-index: 2;
   pointer-events: none;
@@ -131,33 +168,78 @@ main.place-ships {
   display: block;
 }
 
-footer {
-  height: 30px;
-  width: 100%;
-  margin: 0 auto;
-}
-
 .game-over {
   position: absolute;
-  background: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Nixie One', cursive;
 }
 
-.game-over > div {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
+.blur-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgb(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 2;
+}
 
-  background: white;
-  color: black;
-  height: 300px;
+div.game-over :not(.blur-bg, button) {
+  background: transparent;
+  color: white;
 
   font-size: 2rem;
+  letter-spacing: 10px;
+
+  z-index: 3;
+}
+
+button.game-over-btn {
+  display: block;
+  margin: 0 auto;
+  margin-top: 100px;
+  font-size: 1.3rem;
+}
+
+footer {
+  height: 30px;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 99;
+  letter-spacing: 3px;
+}
+
+footer > a {
+  color: white;
+}
+
+footer img {
+  background-color: white;
+  height: 1.5rem;
+  width: auto;
+  margin-left: 5px;
+  border-radius: 100%;
+  padding: 1px;
+  vertical-align: text-bottom;
+}
+
+footer img:hover {
+  animation: iconrotate 500ms ease-in 0s 1 normal forwards;
+}
+
+@keyframes iconrotate {
+  0% {
+    transform: rotate(0);
+    scale: 1;
+  }
+  50% {
+    scale: 1.2;
+  }
+  100% {
+    transform: rotate(360deg);
+    scale: 1;
+  }
 }
