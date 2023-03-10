@@ -47,17 +47,10 @@ const createMain = (playerObj, computerObj) => {
   const main = document.createElement('main');
   const playerSide = document.createElement('div');
   const computerSide = document.createElement('div');
-  // const playerTitle = document.createElement('h2');
-  // const computerTitle = document.createElement('h2');
   const playerGameboard = createGameboard(player);
   const computerGameboard = createGameboard(computer);
 
-  // playerTitle.textContent = 'Player';
-  // computerTitle.textContent = 'Computer';
-
-  // playerSide.appendChild(playerTitle);
   playerSide.appendChild(playerGameboard);
-  // computerSide.appendChild(computerTitle);
   computerSide.appendChild(computerGameboard);
   main.appendChild(playerSide);
   main.appendChild(computerSide);
@@ -87,7 +80,7 @@ const createGameOver = (winner) => {
   if (winner === 'player') {
     textBox.textContent = 'YOU WIN!';
   } else {
-    textBox.textContent = 'YOU WIN!';
+    textBox.textContent = 'YOU LOSE!';
   }
   btn.textContent = 'Play Again';
 
